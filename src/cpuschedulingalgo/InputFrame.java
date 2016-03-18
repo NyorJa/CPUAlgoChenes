@@ -5,6 +5,8 @@
  */
 package cpuschedulingalgo;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author rodfetalveroiii
@@ -97,10 +99,25 @@ public class InputFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void EnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterActionPerformed
-        this.show(false );
-        CalcFrame calcFrame = new CalcFrame(Integer.valueOf(jTextField1.getText()));
-        calcFrame.genLabel(procLabel.getText());
-        calcFrame.show(true);
+                
+//        Integer numInputs = Integer.valueOf(jTextField1.getText());
+        
+        try {
+
+            Integer numInputs = Integer.valueOf(jTextField1.getText());
+
+            if (numInputs == null || numInputs < 0) {
+                JOptionPane.showMessageDialog(this, "Please provide a valid integer number", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else {
+                this.setVisible(false);
+                CalcFrame calcFrame = new CalcFrame(numInputs);
+                calcFrame.genLabel(procLabel.getText());
+                calcFrame.setVisible(true);
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please provide a valid integer number", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_EnterActionPerformed
 
     /**

@@ -104,10 +104,10 @@ public class WelcomeFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.show(false);
+       this.setVisible(false);
         InputFrame inputFrame = new InputFrame();
        inputFrame.genLabel("First Come First Serve");
-       inputFrame.show(true);
+       inputFrame.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

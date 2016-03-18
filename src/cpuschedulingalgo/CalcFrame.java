@@ -30,7 +30,7 @@ public class CalcFrame extends javax.swing.JFrame {
         initComponents();
         
         for (int i = 0; i < numInputs; i++) {
-            CalcPanel calcPanel = new CalcPanel("Input: " + (i+1));
+            CalcPanel calcPanel = new CalcPanel("Enter Burst Time: " + (i+1));
             jPanel2.add(calcPanel);
         }
 
@@ -68,16 +68,17 @@ public class CalcFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(51, 51, 51)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(56, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(158, 158, 158))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,31 +87,48 @@ public class CalcFrame extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String messageOutput = compute();
+        JOptionPane.showMessageDialog(this, messageOutput);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private String compute(){
         double total = 0;
         double average = 0;
         int size = 0;
+        String message = "";
         for (Component col : jPanel2.getComponents()) {
             CalcPanel calc = (CalcPanel) col;
-            size++;
-            total += calc.getTextIntValue();
+            try {
+                Double burstimeInput = calc.getTextDoubleValue();
+                if (burstimeInput == null || burstimeInput < 0) {
+                    JOptionPane.showMessageDialog(this, "Please provide a correct double value", "ERRO", JOptionPane.ERROR_MESSAGE);
+                    message = "Please provide a correct double value";
+                    return message;
+                } else {
+                    size++;
+                    total += calc.getTextDoubleValue();
+                }
+            } catch (NumberFormatException e) {
+                message = "Please provide a correct double value";
+                return message;
+            }
         }
-        
-        average = total/size;
-        
-        String message = "Total is: " + total + "\n" + 
-                "Average is: " + average;
-        JOptionPane.showMessageDialog(this, message);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
+        average = total / size;
+        message = "Total Burst Time is: " + total + "\n"
+                + "Average Burst Time is: " + average;
+        return message;
+    }
     /**
      * @param args the command line arguments
      */

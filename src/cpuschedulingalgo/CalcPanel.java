@@ -26,7 +26,7 @@ public class CalcPanel extends javax.swing.JPanel {
         jTextField1.setText("");
     }
 
-    public Double getTextIntValue() {
+    public Double getTextDoubleValue() {
         return Double.valueOf(jTextField1.getText());
     }
     
