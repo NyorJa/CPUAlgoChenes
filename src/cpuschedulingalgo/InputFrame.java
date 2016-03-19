@@ -106,9 +106,12 @@ public class InputFrame extends javax.swing.JFrame {
 
             Integer numInputs = Integer.valueOf(jTextField1.getText());
 
-            if (numInputs == null || numInputs < 0) {
-                JOptionPane.showMessageDialog(this, "Please provide a valid integer number", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else {
+            if (numInputs == null) {
+                JOptionPane.showMessageDialog(this, "No input", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else if (numInputs < 4) {
+                JOptionPane.showMessageDialog(this, "Input must be higher than four", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
                 this.setVisible(false);
                 CalcFrame calcFrame = new CalcFrame(numInputs);
                 calcFrame.genLabel(procLabel.getText());
